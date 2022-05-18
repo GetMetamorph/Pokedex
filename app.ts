@@ -1,21 +1,16 @@
 process.env["NODE_CONFIG_DIR"] = __dirname + "/configs";
 
-import compression from "compression";
-import cookieParser from "cookie-parser";
-import cors from "cors";
 import config from "config";
 import express from "express";
-import helmet from "helmet";
-import hpp from "hpp";
-import morgan from "morgan";
+
 import mongoose from "mongoose";
+import cors from "cors";
+import morgan from "morgan";
 import { connect, set } from "mongoose";
-import swaggerJSDoc from "swagger-jsdoc";
-import swaggerUi from "swagger-ui-express";
-import { dbConnection } from "~databases";
-import { Routes } from "interfaces/routes.interface";
-import errorMiddleware from "~middlewares/error.middleware";
-import { logger, stream } from "~utils/logger";
+import { dbConnection } from "./databases";
+import { Routes } from "./interfaces/routes.interface";
+//import errorMiddleware from "~middlewares/error.middleware";
+import { logger, stream } from "./utils/logger";
 
 mongoose.connection.on("connected", () => {
   logger.info("Connection mongodb Established");
@@ -83,12 +78,8 @@ class App {
         credentials: config.get("cors.credentials"),
       })
     );
-    this.app.use(hpp());
-    this.app.use(helmet());
-    this.app.use(compression());
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
-    this.app.use(cookieParser());
   }
 
   private initializeRoutes(routes: Routes[]) {
@@ -108,9 +99,6 @@ class App {
       },
       apis: ["swagger.yaml"],
     };
-
-    const specs = swaggerJSDoc(options);
-    this.app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
   }
 
   private initializeErrorHandling() {
