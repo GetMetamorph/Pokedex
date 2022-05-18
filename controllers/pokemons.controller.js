@@ -47,3 +47,40 @@ export const patchPokemon = (req, res) => {
 
   res.send(`Pokemon with the id ${id} has been updated.`);
 };
+
+export const findPokemonByType = (req, res) => {
+  const { type1 } = req.params;
+
+  let foundPokemon = pokemons;
+
+  if (type1) {
+    foundPokemon = foundPokemon.filter(
+      (pokemon) => pokemon.type1 == type1 || pokemon.type2 == type2
+    );
+  }
+
+  res.send(foundPokemon);
+};
+
+export const findPokemonByTypes = (req, res) => {
+  const { type1, type2 } = req.params;
+
+  let foundPokemon = pokemons;
+
+  if (type1) {
+    foundPokemon = foundPokemon.filter(
+      (pokemon) => pokemon.type1 == type1 || pokemon.type2 == type2
+    );
+  }
+
+  if (type2) {
+    foundPokemon = foundPokemon.filter(
+      (pokemon) => pokemon.type2 == type2 || pokemon.type1 == type1
+    );
+  }
+
+  console.log(req.params);
+  console.log(pokemons);
+
+  res.send(foundPokemon);
+};

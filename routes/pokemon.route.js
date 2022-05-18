@@ -5,7 +5,9 @@ import {
   getPokemon,
   deletePokemon,
   patchPokemon,
-} from "../controllers/pokemons.controllers.js";
+  findPokemonByType,
+  findPokemonByTypes,
+} from "../controllers/pokemons.controller.js";
 
 const router = express.Router();
 
@@ -19,5 +21,9 @@ router.get("/:id", getPokemon);
 router.delete("/:id", deletePokemon);
 
 router.patch("/:id", patchPokemon);
+
+router.get("/type/:type1", findPokemonByType);
+
+router.get("/type/:type1/:type2", findPokemonByTypes);
 
 export default router;

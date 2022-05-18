@@ -1,6 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
-import pokemonsRoutes from "./routes/pokemon.js";
+import pokemonsRoutes from "./routes/pokemon.route.js";
 
 const app = express();
 const PORT = 5000;
