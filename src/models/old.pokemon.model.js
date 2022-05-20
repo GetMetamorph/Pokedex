@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const pokemonSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -9,6 +9,6 @@ const pokemonSchema = new mongoose.Schema({
   height: { type: String, required: true },
 });
 
-const Pokemon = mongoose.model("Pokemon", pokemonSchema);
+const Pokemon = mongoose.model('Pokemon', pokemonSchema);
 
 module.exports.Pokemon = Pokemon;

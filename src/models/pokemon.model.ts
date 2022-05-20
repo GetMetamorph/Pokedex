@@ -1,5 +1,5 @@
-import { Schema, model } from "mongoose";
-import { PokemonDocument } from "~interfaces/pokemons.interface";
+import { Schema, model } from 'mongoose';
+import { PokemonDocument } from '~interfaces/pokemons.interface';
 
 const schema = new Schema({
   name: { type: String, required: true },
@@ -10,4 +10,4 @@ const schema = new Schema({
   height: { type: String, required: true },
 });
 
-export const PokemonModel = model<PokemonDocument>("Article", schema);
+export const PokemonModel = model<PokemonDocument>('Pokemon', schema);

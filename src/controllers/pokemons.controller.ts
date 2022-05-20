@@ -59,7 +59,7 @@ export class PokemonsController {
       foundPokemon = foundPokemon.filter(pokemon => pokemon.type1 == type1 || pokemon.type2 == type2);
     }
 
-    res.send(foundPokemon);
+    res.send({ foundPokemon });
   };
 
   findPokemonByTypes = (req, res, pokemons) => {
@@ -78,6 +78,6 @@ export class PokemonsController {
     console.log(req.params);
     console.log(pokemons);
 
-    res.send(foundPokemon);
+    res.send({ foundPokemon });
   };
 }
