@@ -7,7 +7,7 @@ import {
   patchPokemon,
   findPokemonByType,
   findPokemonByTypes,
-} from "../controllers/pokemons.controller.js";
+} from "~controllers/pokemons.controller.js";
 
 const router = express.Router();
 

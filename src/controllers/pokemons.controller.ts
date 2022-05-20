@@ -1,9 +1,6 @@
-import { Request, Response } from "express";
-import {
-  CreatePokemonData,
-  PatchPokemonData,
-} from "../interfaces/pokemons.interface";
-import { PokemonsService } from "../services";
+import { Request, Response } from 'express';
+import { CreatePokemonData, PatchPokemonData } from '~interfaces/pokemons.interface';
+import { PokemonsService } from '~services';
 
 const pokemonsService = new PokemonsService();
 export class PokemonsController {
@@ -48,6 +45,39 @@ export class PokemonsController {
 
     await pokemonsService.deletePokemon(pokemonId);
 
-    res.json({ message: "sucess" });
+    res.json({ message: 'Sucess' });
+  };
+
+  pokemons = pokemonsService.getPokemons();
+
+  findPokemonByType = (req, res, pokemons) => {
+    const { type1, type2 } = req.params;
+
+    let foundPokemon = pokemons;
+
+    if (type1) {
+      foundPokemon = foundPokemon.filter(pokemon => pokemon.type1 == type1 || pokemon.type2 == type2);
+    }
+
+    res.send(foundPokemon);
+  };
+
+  findPokemonByTypes = (req, res, pokemons) => {
+    const { type1, type2 } = req.params;
+
+    let foundPokemon = pokemons;
+
+    if (type1) {
+      foundPokemon = foundPokemon.filter(pokemon => pokemon.type1 == type1 || pokemon.type2 == type2);
+    }
+
+    if (type2) {
+      foundPokemon = foundPokemon.filter(pokemon => pokemon.type2 == type2 || pokemon.type1 == type1);
+    }
+
+    console.log(req.params);
+    console.log(pokemons);
+
+    res.send(foundPokemon);
   };
 }

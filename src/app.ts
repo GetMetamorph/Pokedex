@@ -1,16 +1,18 @@
 process.env["NODE_CONFIG_DIR"] = __dirname + "/configs";
 
+import compression from "compression";
 import config from "config";
 import express from "express";
-
+import helmet from "helmet";
+import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 import cors from "cors";
 import morgan from "morgan";
 import { connect, set } from "mongoose";
-import { dbConnection } from "./databases";
-import { Routes } from "./interfaces/routes.interface";
-//import errorMiddleware from "~middlewares/error.middleware";
-import { logger, stream } from "./utils/logger";
+import { dbConnection } from "~databases";
+import { Routes } from "~interfaces/routes.interface";
+import errorMiddleware from "~middlewares/error.middleware";
+import { logger, stream } from "~utils/logger";
 
 mongoose.connection.on("connected", () => {
   logger.info("Connection mongodb Established");
@@ -66,12 +68,11 @@ class App {
     if (this.env !== "production") {
       set("debug", true);
     }
-
-    connect(dbConnection.url, dbConnection.options);
+    connect(dbConnection.url);
   }
 
   private initializeMiddlewares() {
-    this.app.use(morgan(config.get("log.format"), { stream }));
+    this.app.use(morgan(config.get("log.format"), { stream }) as any);
     this.app.use(
       cors({
         origin: config.get("cors.origin"),
